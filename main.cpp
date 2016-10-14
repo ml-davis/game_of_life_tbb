@@ -30,8 +30,7 @@ void set_color(char species) {
 void paint_cell(float x, float y, char species) {
     if (x < 0 || x >= horiz_num_cells || y < 0 || y >= vert_num_cells) {
         std::cout << "Tried to place cell in invalid position: (" << x << ", " << y << ")" << std::endl;
-        std::cin.get();
-        // exit(1); why the fuck won't this work :|
+        exit(1);
     }
 
     x *= cell_size;
@@ -40,18 +39,26 @@ void paint_cell(float x, float y, char species) {
     set_color(species);
 
     glBegin(GL_POLYGON);
-    glVertex3f(x,				y,				0.0f);
-    glVertex3f(x + cell_size,	y,				0.0f);
-    glVertex3f(x + cell_size,	y + cell_size,	0.0f);
-    glVertex3f(x,				y + cell_size,	0.0f);
+    glVertex3f(x, y, 0.0f);
+    glVertex3f(x + cell_size, y, 0.0f);
+    glVertex3f(x + cell_size, y + cell_size, 0.0f);
+    glVertex3f(x, y + cell_size, 0.0f);
     glEnd();
     glFlush();
 }
 
+
 void display() {
     char species = 'A';
-    for (int i = 0; i < 10; i++) {
-        paint_cell(i, i, species++);
+    int count = -1;
+    for (int i = 0; i < vert_num_cells; i++) {
+        for (int j = 0; j < horiz_num_cells; j++) {
+            if (count++ == 9) {
+                count = 0;
+                species = 'A';
+            }
+            paint_cell(j, i, species++);
+        }
     }
 }
 
