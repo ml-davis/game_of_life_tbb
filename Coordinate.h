@@ -2,18 +2,35 @@
 #define GAME_OF_LIFE_2_1_COORDINATE_H
 
 #include "Game_Of_Life.h"
+#include <iostream>
+
+using namespace std;
 
 enum Species { S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, DEAD };
 
 struct Coordinate {
-    int x;
-    int y;
+    size_t x;
+    size_t y;
     Species species;
-    Coordinate(int x_coordinate, int y_coordinate, Species s) {
+    Coordinate(size_t x_coordinate, size_t y_coordinate, Species s) {
         x = x_coordinate;
         y = y_coordinate;
         species = s;
     }
 };
+
+// print error message and terminate program
+inline void invalid_range(size_t x, string func) {
+    cout << "Invalid range (" << x << ") in " << func
+         << endl;
+    exit(1);
+}
+
+// print error message and terminate program
+inline void invalid_range(size_t x, size_t y, string func) {
+    cout << "Invalid range (" << x << ", " << y << ") in " << func
+         << endl;
+    exit(1);
+}
 
 #endif

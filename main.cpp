@@ -5,7 +5,7 @@
 #include <GL/freeglut.h>
 #include "Game_Of_Life.h"
 
-Game_Of_Life game(5);
+Game_Of_Life game(10);
 
 int pixel_width = 1024;
 int pixel_height = 768;
@@ -30,7 +30,11 @@ void set_color(Species species) {
 }
 
 // places a square at (x, y). Must be nested in glBegin() <-> glEnd() tags
-void draw_square(int x, int y) {
+void draw_square(size_t x, size_t y) {
+    if (x < 0 || y < 0 || x >= game.get_width() || y >= game.get_height()) {
+        invalid_range(x, y, "draw_square");
+    }
+
     x *= cell_size;
     y *= cell_size;
 
@@ -63,8 +67,8 @@ void display() {
     clock_t start = clock();
 
     for (;;) {
-        // fetch cells which need to be updated from back-end
-        vector<Coordinate> update_list = game.get_update_list();
+        // fetch cells which need to be updated from back-end. Note: lists refreshed each fetch
+        concurrent_vector<Coordinate> update_list = game.get_update_list();
 
         // iterate over cells that need to be updated and set them accordingly
         glBegin(GL_QUADS);
@@ -79,7 +83,7 @@ void display() {
         // determine fps and print it to console approximately every 2 seconds
         count++;
         double duration = double(clock() - start) / CLOCKS_PER_SEC;
-        if (duration > 2) {
+        if (duration > 5) {
             cout << "FPS = " << count / duration << endl;
 
             // reset data to get independent fps every 2 seconds
