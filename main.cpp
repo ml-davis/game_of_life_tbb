@@ -5,7 +5,7 @@
 int pixel_width = 1024;
 int pixel_height = 768;
 
-int cell_size = 8;
+int cell_size = 4;
 
 int horiz_num_cells = pixel_width / cell_size;
 int vert_num_cells = pixel_height / cell_size;
@@ -26,40 +26,32 @@ void set_color(char species) {
     }
 }
 
-// colors a square at coordinates x,y a given color
-void paint_cell(float x, float y, char species) {
-    if (x < 0 || x >= horiz_num_cells || y < 0 || y >= vert_num_cells) {
-        std::cout << "Tried to place cell in invalid position: (" << x << ", " << y << ")" << std::endl;
-        exit(1);
-    }
-
-    x *= cell_size;
-    y *= cell_size;
-
-    set_color(species);
-
-    glBegin(GL_POLYGON);
-    glVertex3f(x, y, 0.0f);
-    glVertex3f(x + cell_size, y, 0.0f);
-    glVertex3f(x + cell_size, y + cell_size, 0.0f);
-    glVertex3f(x, y + cell_size, 0.0f);
-    glEnd();
-    glFlush();
-}
-
-
 void display() {
     char species = 'A';
     int count = -1;
+
+    glBegin(GL_QUADS);
     for (int i = 0; i < vert_num_cells; i++) {
         for (int j = 0; j < horiz_num_cells; j++) {
             if (count++ == 9) {
                 count = 0;
                 species = 'A';
             }
-            paint_cell(j, i, species++);
+
+            set_color(species++);
+
+            int x = j * cell_size;
+            int y = i * cell_size;
+
+            glVertex2f(x, y);
+            glVertex2f(x + cell_size, y);
+            glVertex2f(x + cell_size, y + cell_size);
+            glVertex2f(x, y + cell_size);
+
         }
     }
+    glEnd();
+    glFlush();
 }
 
 int main(int argc, char **argv) {
