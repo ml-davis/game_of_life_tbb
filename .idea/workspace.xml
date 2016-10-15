@@ -13,11 +13,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c58a5b58-d0f2-4deb-b5cd-82cd52641e81" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Coordinate.h" afterPath="$PROJECT_DIR$/Coordinate.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game_Of_Life.cpp" afterPath="$PROJECT_DIR$/Game_Of_Life.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game_Of_Life.h" afterPath="$PROJECT_DIR$/Game_Of_Life.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,8 +46,8 @@
           <file leaf-file-name="Game_Of_Life.h" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Game_Of_Life.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="720">
-                  <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+                <state relative-caret-position="324">
+                  <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
                   <folding>
                     <element signature="e#81#99#0" expanded="true" />
                   </folding>
@@ -87,8 +82,8 @@
           <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-468">
-                  <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+                <state relative-caret-position="18">
+                  <caret line="49" column="30" lean-forward="true" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
                   <folding>
                     <element signature="e#160#180#0" expanded="true" />
                   </folding>
@@ -364,12 +359,12 @@
       <workItem from="1476457018789" duration="4859000" />
       <workItem from="1476461881753" duration="501000" />
       <workItem from="1476465494704" duration="621000" />
-      <workItem from="1476494164787" duration="13003000" />
+      <workItem from="1476494164787" duration="13955000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18984000" />
+    <option name="totallyTimeSpent" value="19936000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
@@ -503,8 +498,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Game_Of_Life.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        <state relative-caret-position="324">
+          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
           <folding>
             <element signature="e#81#99#0" expanded="true" />
           </folding>
@@ -513,8 +508,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-468">
-          <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        <state relative-caret-position="18">
+          <caret line="49" column="30" lean-forward="true" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
           <folding>
             <element signature="e#160#180#0" expanded="true" />
           </folding>

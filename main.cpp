@@ -57,23 +57,39 @@ void initialize_board() {
 // infinite loop. It fetches and operates on the cells that need to be changed forever
 void display() {
     initialize_board();
+
+    // begin clock for fps counter
+    int count = 0;
+    clock_t start = clock();
+
     for (;;) {
+        // fetch cells which need to be updated from back-end
+        vector<Coordinate> update_list = game.get_update_list();
+
+        // iterate over cells that need to be updated and set them accordingly
         glBegin(GL_QUADS);
-
-        vector<Coordinate> update_list = game.get_update_list(); // renewed every fetch
-
         for (auto &coord: update_list) {
             set_color(coord.species);
             game.set_cell(coord.x, coord.y, coord.species);
             draw_square(coord.x, coord.y);
         }
-
         glEnd();
         glFlush();
+
+        // determine fps and print it to console approximately every 2 seconds
+        count++;
+        double duration = double(clock() - start) / CLOCKS_PER_SEC;
+        if (duration > 2) {
+            cout << "FPS = " << count / duration << endl;
+
+            // reset data to get independent fps every 2 seconds
+            count = 0;
+            start = clock();
+        }
     }
 }
 
-// intialization
+// intializate OpenGL and begin our display loop
 int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
