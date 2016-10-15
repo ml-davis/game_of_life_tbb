@@ -24,18 +24,19 @@ private:
     // private methods
     void random_spawn_grid();
     size_t number_of_neighbors(int x, int y, Species s);
+    void generate_update_list();
 
 public:
+    // constructor
     Game_Of_Life(int num_species);
-    void spawn_cell(int x, int y, Species s);
-    void kill_cell(int x, int y);
+
+    // public methods
+    void set_cell(int x, int y, Species s);
     Species species_at_cell(int x, int y);
-    void generate_update_list();
     vector<Coordinate> get_update_list();
     size_t get_width();
     size_t get_height();
 
 };
 
-
-#endif //GAME_OF_LIFE_2_1_GAME_OF_LIFE_H
+#endif
