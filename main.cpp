@@ -5,7 +5,7 @@
 #include <GL/freeglut.h>
 #include "Game_Of_Life.h"
 
-Game_Of_Life game(2);
+Game_Of_Life game(10);
 
 int pixel_width = 1024;
 int pixel_height = 768;

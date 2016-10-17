@@ -1,6 +1,7 @@
 // This file contains all of our game logic source code. It has the methods
 // which determine which cells should live or die.
 
+#include <map>
 #include "Game_Of_Life.h"
 
 // constructor
@@ -28,9 +29,9 @@ void Game_Of_Life::random_spawn_grid() {
     for (size_t i = 0; i < number_of_species; i++) {
         Species species = static_cast<Species>(i);
 
-        int radius = 60;
-        int number_of_squares = (int) floor((radius * radius) * 0.20); // fill ~20% of square
-        int distance_from_edge = radius + 2;
+        size_t radius = 60;
+        size_t number_of_squares = (size_t) floor((radius * radius) * 0.25); // fill ~20% of square
+        size_t distance_from_edge = radius + 2;
 
         // choose random target on board, at least specified distance from edges
         size_t x_target = (rand() % (WIDTH - (distance_from_edge * 2 - 1))) + distance_from_edge;
@@ -41,7 +42,7 @@ void Game_Of_Life::random_spawn_grid() {
         // pick number_of_squares within (radius x radius) square centered on target
         size_t rand_x;
         size_t rand_y;
-        for (int i = 0; i < number_of_squares; i++) {
+        for (size_t i = 0; i < number_of_squares; i++) {
             rand_x = x_target + ((rand() % (radius + 1)) - (radius/2));
             rand_y = y_target + ((rand() % (radius + 1)) - (radius/2));
             set_cell(rand_x, rand_y, species);
@@ -72,6 +73,47 @@ size_t Game_Of_Life::number_of_neighbors(size_t x, size_t y, Species s) {
     return count;
 }
 
+Species Game_Of_Life::get_spawn_type(size_t x, size_t y) {
+    struct Counter {
+        Species species;
+        size_t count;
+        Counter() {
+            species = DEAD;
+            count = 0;
+        }
+        Counter(Species s, size_t c) {
+            species = s;
+            count = c;
+        }
+    };
+
+    Counter c[10];
+
+    for (size_t i = 0; i < number_of_species; i++) {
+        c[i] = Counter(static_cast<Species>(i), 0);
+    }
+
+    for (size_t i = x - 1; i <= x + 1; i++) {
+        for (size_t j = y - 1; j <= y + 1; j++) {
+            // check only if cell isn't current cell (x,y) AND cell is not out of bounds
+            if ((i != x || j != y) && (i >= 0 && j >= 0 && i < WIDTH && j < HEIGHT)) {
+                Species s = species_at_cell(i, j);
+                c[s].count++;
+            }
+        }
+    }
+
+    // if cell should be spawned, return it
+    for (size_t i = 0; i < number_of_species; i++) {
+        if (c[i].count == 3) {
+            return c[i].species;
+        }
+    }
+
+    // if no spawn cell found, cell should be dead
+    return DEAD;
+}
+
 // uses TBB to determine in parallel which cells on board need to change (be spawned or killed)
 void Game_Of_Life::generate_update_list() {
     update_list.clear();
@@ -94,13 +136,19 @@ void Game_Of_Life::generate_update_list() {
             }
         // if no species in cell, check if any species should be spawned there
         } else {
-            for (size_t k = 0; k < number_of_species; k++) {
-                species = static_cast<Species>(k);
-                num_neighbors = number_of_neighbors(x, y, species);
-                if (num_neighbors == 3) {
-                    update_list.push_back(Coordinate(x, y, species));
-                    break;
+            // faster for small number of species
+            if (number_of_species < 5) {
+                for (size_t k = 0; k < number_of_species; k++) {
+                    species = static_cast<Species>(k);
+                    num_neighbors = number_of_neighbors(x, y, species);
+                    if (num_neighbors == 3) {
+                        update_list.push_back(Coordinate(x, y, species));
+                        break;
+                    }
                 }
+            // faster for larger number of species
+            } else {
+                update_list.push_back(Coordinate(x, y, get_spawn_type(x, y)));
             }
         }
     }, auto_partitioner());

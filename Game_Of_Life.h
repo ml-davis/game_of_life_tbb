@@ -30,6 +30,7 @@ private:
     // private methods
     void random_spawn_grid();
     size_t number_of_neighbors(size_t x, size_t y, Species s);
+    Species get_spawn_type(size_t x, size_t y);
     void generate_update_list();
 
 public:
