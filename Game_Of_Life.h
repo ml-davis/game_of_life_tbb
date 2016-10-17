@@ -17,7 +17,10 @@ using namespace tbb;
 class Game_Of_Life {
 private:
     // constants
+//    static const size_t WIDTH = 128, HEIGHT = 96;
+//    static const size_t WIDTH = 256, HEIGHT = 192;
     static const size_t WIDTH = 512, HEIGHT = 384;
+//    static const size_t WIDTH = 1024, HEIGHT = 768;
 
     // instances
     size_t number_of_species;
@@ -28,7 +31,6 @@ private:
     void random_spawn_grid();
     size_t number_of_neighbors(size_t x, size_t y, Species s);
     void generate_update_list();
-    void sequential_generate_update_list();
 
 public:
     // constructor

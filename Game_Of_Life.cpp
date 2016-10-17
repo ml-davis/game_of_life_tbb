@@ -28,7 +28,7 @@ void Game_Of_Life::random_spawn_grid() {
     for (size_t i = 0; i < number_of_species; i++) {
         Species species = static_cast<Species>(i);
 
-        int radius = 45;
+        int radius = 60;
         int number_of_squares = (int) floor((radius * radius) * 0.20); // fill ~20% of square
         int distance_from_edge = radius + 2;
 
@@ -76,70 +76,34 @@ size_t Game_Of_Life::number_of_neighbors(size_t x, size_t y, Species s) {
 void Game_Of_Life::generate_update_list() {
     update_list.clear();
 
-    parallel_for(blocked_range<size_t>(0, WIDTH * HEIGHT - 1),
-        [=](const blocked_range<size_t> &r) {
-            for (size_t i = r.begin(); i <= r.end(); i++) {
+    parallel_for(size_t(0), WIDTH * HEIGHT - 1, [&](size_t i) {
 
-                size_t x = i % WIDTH;
-                size_t y = i / WIDTH ;
+        size_t x = i % WIDTH;
+        size_t y = i / WIDTH ;
 
-                // determine species of cell
-                Species species = species_at_cell(x, y);
+        // determine species of cell
+        Species species = species_at_cell(x, y);
 
-                size_t num_neighbors;
+        size_t num_neighbors;
 
-                // if species lives in cell, count # neighbors and add to kill list if applicable
-                if (species != DEAD) {
-                    num_neighbors = number_of_neighbors(x, y, species);
-                    if (num_neighbors < 2 || num_neighbors > 3) {
-                        update_list.push_back(Coordinate(x, y, DEAD));
-                    }
-                    // if no species in cell, check if any species should be spawned there
-                } else {
-                    for (size_t k = 0; k < number_of_species; k++) {
-                        species = static_cast<Species>(k);
-                        num_neighbors = number_of_neighbors(x, y, species);
-                        if (num_neighbors == 3) {
-                            update_list.push_back(Coordinate(x, y, species));
-                            break;
-                        }
-                    }
-                }
+        // if species lives in cell, count # neighbors and add to kill list if applicable
+        if (species != DEAD) {
+            num_neighbors = number_of_neighbors(x, y, species);
+            if (num_neighbors < 2 || num_neighbors > 3) {
+                update_list.push_back(Coordinate(x, y, DEAD));
             }
-        }, auto_partitioner());
-}
-
-// determine which cells on board need to change (be spawned or killed) can be removed later
-void Game_Of_Life::sequential_generate_update_list() {
-    update_list.clear();
-
-    // for each cell
-    for (size_t i = 0; i < HEIGHT; i++) {
-        for (size_t j = 0; j < WIDTH; j++) {
-
-            // determine species of cell
-            Species species = species_at_cell(j, i);
-            size_t num_neighbors;
-
-            // if species lives in cell, count # neighbors and add to kill list if applicable
-            if (species != DEAD) {
-                num_neighbors = number_of_neighbors(j, i, species);
-                if (num_neighbors < 2 || num_neighbors > 3) {
-                    update_list.push_back(Coordinate(j, i, DEAD));
-                }
-            // if no species in cell, check if any species should be spawned there
-            } else {
-                for (size_t k = 0; k < number_of_species; k++) {
-                    species = static_cast<Species>(k);
-                    num_neighbors = number_of_neighbors(j, i, species);
-                    if (num_neighbors == 3) {
-                        update_list.push_back(Coordinate(j, i, species));
-                        break;
-                    }
+        // if no species in cell, check if any species should be spawned there
+        } else {
+            for (size_t k = 0; k < number_of_species; k++) {
+                species = static_cast<Species>(k);
+                num_neighbors = number_of_neighbors(x, y, species);
+                if (num_neighbors == 3) {
+                    update_list.push_back(Coordinate(x, y, species));
+                    break;
                 }
             }
         }
-    }
+    }, auto_partitioner());
 }
 
 // set species of given cell
@@ -160,7 +124,6 @@ Species Game_Of_Life::species_at_cell(size_t x, size_t y) {
 
 // first refresh the update list and then return it
 concurrent_vector<Coordinate> Game_Of_Life::get_update_list() {
-//    sequential_generate_update_list();
     generate_update_list();
     return update_list;
 }
