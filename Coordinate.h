@@ -19,6 +19,19 @@ struct Coordinate {
     }
 };
 
+struct Counter {
+    Species species;
+    size_t count;
+    Counter() {
+        species = DEAD;
+        count = 0;
+    }
+    Counter(Species s, size_t c) {
+        species = s;
+        count = c;
+    }
+};
+
 // print error message and terminate program
 inline void invalid_range(size_t x, string func) {
     cout << "Invalid range (" << x << ") in " << func

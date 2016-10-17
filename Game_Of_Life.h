@@ -17,10 +17,9 @@ using namespace tbb;
 class Game_Of_Life {
 private:
     // constants
-//    static const size_t WIDTH = 128, HEIGHT = 96;
-//    static const size_t WIDTH = 256, HEIGHT = 192;
-    static const size_t WIDTH = 512, HEIGHT = 384;
-//    static const size_t WIDTH = 1024, HEIGHT = 768;
+//    static const size_t WIDTH = 128, HEIGHT = 96;     // 8 px cell
+    static const size_t WIDTH = 512, HEIGHT = 384;      // 2 px cell
+//    static const size_t WIDTH = 1024, HEIGHT = 768;   // 1 px cell
 
     // instances
     size_t number_of_species;

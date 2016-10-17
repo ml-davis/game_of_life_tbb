@@ -1,7 +1,6 @@
 // This file contains all of our game logic source code. It has the methods
 // which determine which cells should live or die.
 
-#include <map>
 #include "Game_Of_Life.h"
 
 // constructor
@@ -73,26 +72,16 @@ size_t Game_Of_Life::number_of_neighbors(size_t x, size_t y, Species s) {
     return count;
 }
 
+// returns which type of cell should be spawned at (x, y) if any at all
 Species Game_Of_Life::get_spawn_type(size_t x, size_t y) {
-    struct Counter {
-        Species species;
-        size_t count;
-        Counter() {
-            species = DEAD;
-            count = 0;
-        }
-        Counter(Species s, size_t c) {
-            species = s;
-            count = c;
-        }
-    };
 
+    // initialize counter
     Counter c[10];
-
     for (size_t i = 0; i < number_of_species; i++) {
         c[i] = Counter(static_cast<Species>(i), 0);
     }
 
+    // counter number of neighbors for each species
     for (size_t i = x - 1; i <= x + 1; i++) {
         for (size_t j = y - 1; j <= y + 1; j++) {
             // check only if cell isn't current cell (x,y) AND cell is not out of bounds
@@ -103,7 +92,7 @@ Species Game_Of_Life::get_spawn_type(size_t x, size_t y) {
         }
     }
 
-    // if cell should be spawned, return it
+    // if any species has 3 neighbors it will be added to update_list
     for (size_t i = 0; i < number_of_species; i++) {
         if (c[i].count == 3) {
             return c[i].species;
@@ -126,27 +115,17 @@ void Game_Of_Life::generate_update_list() {
         // determine species of cell
         Species species = species_at_cell(x, y);
 
-        size_t num_neighbors;
-
         // if species lives in cell, count # neighbors and add to kill list if applicable
         if (species != DEAD) {
-            num_neighbors = number_of_neighbors(x, y, species);
+            size_t num_neighbors = number_of_neighbors(x, y, species);
             if (num_neighbors < 2 || num_neighbors > 3) {
                 update_list.push_back(Coordinate(x, y, DEAD));
             }
         // if no species in cell, check if any species should be spawned there
         } else {
-            // faster method if only 1 species
-            if (number_of_species == 1) {
-                if (number_of_neighbors(x, y, S0) == 3) {
-                    update_list.push_back(Coordinate(x, y, S0));
-                }
-            // faster for larger number of species
-            } else {
-                Species spawn_type = get_spawn_type(x, y);
-                if (spawn_type != DEAD) {
-                    update_list.push_back(Coordinate(x, y, get_spawn_type(x, y)));
-                }
+            Species spawn_type = get_spawn_type(x, y);
+            if (spawn_type != DEAD) {
+                update_list.push_back(Coordinate(x, y, spawn_type));
             }
         }
     }, auto_partitioner());

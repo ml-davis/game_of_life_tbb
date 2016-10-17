@@ -14,7 +14,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c58a5b58-d0f2-4deb-b5cd-82cd52641e81" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Coordinate.h" afterPath="$PROJECT_DIR$/Coordinate.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game_Of_Life.cpp" afterPath="$PROJECT_DIR$/Game_Of_Life.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game_Of_Life.h" afterPath="$PROJECT_DIR$/Game_Of_Life.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,7 +51,7 @@
             <entry file="file://$PROJECT_DIR$/Coordinate.h">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="512">
-                  <caret line="32" column="12" lean-forward="true" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+                  <caret line="32" column="2" lean-forward="false" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
                   <folding>
                     <element signature="e#77#102#0" expanded="true" />
                   </folding>
@@ -60,8 +62,8 @@
           <file leaf-file-name="Game_Of_Life.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Game_Of_Life.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="576">
-                  <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+                <state relative-caret-position="192">
+                  <caret line="21" column="68" lean-forward="false" selection-start-line="21" selection-start-column="68" selection-end-line="21" selection-end-column="68" />
                   <folding>
                     <element signature="e#81#97#0" expanded="true" />
                   </folding>
@@ -76,11 +78,9 @@
           <file leaf-file-name="Game_Of_Life.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Game_Of_Life.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="870">
-                  <caret line="138" column="46" lean-forward="false" selection-start-line="138" selection-start-column="46" selection-end-line="138" selection-end-column="46" />
-                  <folding>
-                    <element signature="e#128#142#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="131">
+                  <caret line="75" column="58" lean-forward="false" selection-start-line="75" selection-start-column="58" selection-end-line="75" selection-end-column="58" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -88,8 +88,8 @@
           <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="112">
-                  <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+                <state relative-caret-position="-656">
+                  <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
                   <folding>
                     <element signature="e#160#180#0" expanded="true" />
                   </folding>
@@ -119,12 +119,12 @@
       <list>
         <option value="$PROJECT_DIR$/gitignore" />
         <option value="$PROJECT_DIR$/Coordinate.cpp" />
-        <option value="$PROJECT_DIR$/Coordinate.h" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/Game_Of_Life.h" />
-        <option value="$PROJECT_DIR$/Game_Of_Life.cpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/Game_Of_Life.h" />
+        <option value="$PROJECT_DIR$/Coordinate.h" />
+        <option value="$PROJECT_DIR$/Game_Of_Life.cpp" />
       </list>
     </option>
   </component>
@@ -396,12 +396,12 @@
       <workItem from="1476465494704" duration="621000" />
       <workItem from="1476494164787" duration="16025000" />
       <workItem from="1476536522306" duration="6828000" />
-      <workItem from="1476658474091" duration="23263000" />
+      <workItem from="1476658474091" duration="25790000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52097000" />
+    <option name="totallyTimeSpent" value="54624000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-37" width="1920" height="1117" extended-state="0" />
@@ -472,9 +472,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#128#142#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -520,9 +518,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#128#142#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -606,10 +602,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-656">
+          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding>
+            <element signature="e#160#180#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Game_Of_Life.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+        <state relative-caret-position="192">
+          <caret line="21" column="68" lean-forward="false" selection-start-line="21" selection-start-column="68" selection-end-line="21" selection-end-column="68" />
           <folding>
             <element signature="e#81#97#0" expanded="true" />
           </folding>
@@ -619,30 +625,18 @@
     <entry file="file://$PROJECT_DIR$/Coordinate.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="512">
-          <caret line="32" column="12" lean-forward="true" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+          <caret line="32" column="2" lean-forward="false" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
           <folding>
             <element signature="e#77#102#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-          <folding>
-            <element signature="e#160#180#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Game_Of_Life.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="138" column="46" lean-forward="false" selection-start-line="138" selection-start-column="46" selection-end-line="138" selection-end-column="46" />
-          <folding>
-            <element signature="e#128#142#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="131">
+          <caret line="75" column="58" lean-forward="false" selection-start-line="75" selection-start-column="58" selection-end-line="75" selection-end-column="58" />
+          <folding />
         </state>
       </provider>
     </entry>
