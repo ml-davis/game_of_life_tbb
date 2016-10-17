@@ -136,19 +136,17 @@ void Game_Of_Life::generate_update_list() {
             }
         // if no species in cell, check if any species should be spawned there
         } else {
-            // faster for small number of species
-            if (number_of_species < 5) {
-                for (size_t k = 0; k < number_of_species; k++) {
-                    species = static_cast<Species>(k);
-                    num_neighbors = number_of_neighbors(x, y, species);
-                    if (num_neighbors == 3) {
-                        update_list.push_back(Coordinate(x, y, species));
-                        break;
-                    }
+            // faster method if only 1 species
+            if (number_of_species == 1) {
+                if (number_of_neighbors(x, y, S0) == 3) {
+                    update_list.push_back(Coordinate(x, y, S0));
                 }
             // faster for larger number of species
             } else {
-                update_list.push_back(Coordinate(x, y, get_spawn_type(x, y)));
+                Species spawn_type = get_spawn_type(x, y);
+                if (spawn_type != DEAD) {
+                    update_list.push_back(Coordinate(x, y, get_spawn_type(x, y)));
+                }
             }
         }
     }, auto_partitioner());
