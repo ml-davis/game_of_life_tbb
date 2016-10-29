@@ -51,10 +51,6 @@ void Game_Of_Life::random_spawn_grid() {
 
 // determine number of neighbors of given species at coordinate (x, y)
 size_t Game_Of_Life::number_of_neighbors(size_t x, size_t y, Species s) {
-    if (x < 0 || y < 0 || x >= WIDTH|| y >= HEIGHT) {
-        invalid_range(x, y, "number_of_neighbors");
-    }
-
     size_t count = 0;
 
     // iterate over 3x3 grid centered on (x,y)
@@ -125,7 +121,7 @@ Species Game_Of_Life::get_spawn_type(size_t x, size_t y) {
 void Game_Of_Life::generate_update_list() {
     update_list.clear();
 
-    parallel_for(size_t(0), WIDTH * HEIGHT - 1, [=](size_t i) {
+    parallel_for(size_t(0), WIDTH * HEIGHT, [=](size_t i) {
 
         size_t x = i % WIDTH;
         size_t y = i / WIDTH ;
@@ -151,17 +147,11 @@ void Game_Of_Life::generate_update_list() {
 
 // set species of given cell
 void Game_Of_Life::set_cell(size_t x, size_t y, Species s) {
-    if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT) {
-        invalid_range(x, y, "set_cell");
-    }
     grid[y][x] = s;
 }
 
 // return the species at current cell
 Species Game_Of_Life::species_at_cell(size_t x, size_t y) {
-    if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT) {
-        invalid_range(x, y, "species_at_cell");
-    }
     return grid[y][x];
 }
 
