@@ -23,13 +23,13 @@ Game_Of_Life::Game_Of_Life(size_t num_species) {
     random_spawn_grid();
 }
 
-// place all species randomly on board (buckshot approach)
+// place all species randomly on board ("buckshot" approach)
 void Game_Of_Life::random_spawn_grid() {
     for (size_t i = 0; i < number_of_species; i++) {
         Species species = static_cast<Species>(i);
 
         size_t radius = 60;
-        size_t number_of_squares = (size_t) floor((radius * radius) * 0.25); // fill ~20% of square
+        size_t number_of_squares = (size_t) floor((radius * radius) * 0.25); // fill ~25% of square
         size_t distance_from_edge = radius + 2;
 
         // choose random target on board, at least specified distance from edges
@@ -72,6 +72,24 @@ size_t Game_Of_Life::number_of_neighbors(size_t x, size_t y, Species s) {
     return count;
 }
 
+bool Game_Of_Life::has_three_neighbors(size_t x, size_t y) {
+    int count = 0;
+
+    for (size_t i = x - 1; i <= x + 1; i++) {
+        for (size_t j = y - 1; j <= y + 1; j++) {
+            // check only if cell isn't current cell (x,y) AND cell is not out of bounds
+            if ((i != x || j != y) && (i >= 0 && j >= 0 && i < WIDTH && j < HEIGHT)) {
+                if (species_at_cell(i, j) != DEAD) {
+                    if (++count == 3) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
 // returns which type of cell should be spawned at (x, y) if any at all
 Species Game_Of_Life::get_spawn_type(size_t x, size_t y) {
 
@@ -107,7 +125,7 @@ Species Game_Of_Life::get_spawn_type(size_t x, size_t y) {
 void Game_Of_Life::generate_update_list() {
     update_list.clear();
 
-    parallel_for(size_t(0), WIDTH * HEIGHT - 1, [&](size_t i) {
+    parallel_for(size_t(0), WIDTH * HEIGHT - 1, [=](size_t i) {
 
         size_t x = i % WIDTH;
         size_t y = i / WIDTH ;
@@ -122,7 +140,7 @@ void Game_Of_Life::generate_update_list() {
                 update_list.push_back(Coordinate(x, y, DEAD));
             }
         // if no species in cell, check if any species should be spawned there
-        } else {
+        } else if (has_three_neighbors(x, y)) { // do "heavy" get_spawn_type() only if 3 neighbors exist
             Species spawn_type = get_spawn_type(x, y);
             if (spawn_type != DEAD) {
                 update_list.push_back(Coordinate(x, y, spawn_type));

@@ -17,9 +17,9 @@ using namespace tbb;
 class Game_Of_Life {
 private:
     // constants
-//    static const size_t WIDTH = 128, HEIGHT = 96;     // 8 px cell
+   // static const size_t WIDTH = 128, HEIGHT = 96;     // 8 px cell
     static const size_t WIDTH = 512, HEIGHT = 384;      // 2 px cell
-//    static const size_t WIDTH = 1024, HEIGHT = 768;   // 1 px cell
+   // static const size_t WIDTH = 1024, HEIGHT = 768;   // 1 px cells
 
     // instances
     size_t number_of_species;
@@ -30,6 +30,7 @@ private:
     void random_spawn_grid();
     size_t number_of_neighbors(size_t x, size_t y, Species s);
     Species get_spawn_type(size_t x, size_t y);
+    bool has_three_neighbors(size_t x, size_t y);
     void generate_update_list();
 
 public:

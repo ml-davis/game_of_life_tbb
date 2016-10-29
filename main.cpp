@@ -64,12 +64,16 @@ void display() {
 
     // begin clock for fps counter
     int count = 0;
-    clock_t start = clock();
 
     for (;;) {
         // fetch cells which need to be updated from back-end. Note: list refreshed each fetch
-        concurrent_vector<Coordinate> update_list = game.get_update_list(); // 99% of work done here
+        // over 99% of work done here!
+        clock_t start = clock();
+        concurrent_vector<Coordinate> update_list = game.get_update_list();
+        double duration = double(clock() - start) / 3600000;
+        cout << "Fetch duration = " << duration << endl;
 
+        start = clock();
         // iterate over cells that need to be updated and set them accordingly
         glBegin(GL_QUADS);
         for (auto &coord: update_list) {
@@ -79,17 +83,8 @@ void display() {
         }
         glEnd();
         glFlush();
-
-        // determine fps and print it to console approximately every 2 seconds
-        count++;
-        double duration = double(clock() - start) / 3600000;
-        if (duration > 5) {
-            cout << "FPS = " << count / duration << endl;
-
-            // reset data to get independent fps every 5 seconds
-            count = 0;
-            start = clock();
-        }
+        duration = double(clock() - start) / 3600000;
+        cout << "Draw duration  = " << duration << endl << endl;
     }
 
 }

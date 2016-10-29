@@ -34,15 +34,13 @@ struct Counter {
 
 // print error message and terminate program
 inline void invalid_range(size_t x, string func) {
-    cout << "Invalid range (" << x << ") in " << func
-         << endl;
+    cout << "Invalid range (" << x << ") in " << func << endl;
     exit(1);
 }
 
 // print error message and terminate program
 inline void invalid_range(size_t x, size_t y, string func) {
-    cout << "Invalid range (" << x << ", " << y << ") in " << func
-         << endl;
+    cout << "Invalid range (" << x << ", " << y << ") in " << func << endl;
     exit(1);
 }
 
