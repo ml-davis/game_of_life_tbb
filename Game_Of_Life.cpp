@@ -6,7 +6,8 @@
 // constructor
 Game_Of_Life::Game_Of_Life(size_t num_species) {
     if (num_species < 1 || num_species > 10) {
-        invalid_range(num_species, "constructor");
+        cout << "Invalid range in constructor. Number of species must be [1-10]" << endl;
+        exit(1);
     }
 
     srand(time(NULL));
@@ -28,9 +29,10 @@ void Game_Of_Life::random_spawn_grid() {
     for (size_t i = 0; i < number_of_species; i++) {
         Species species = static_cast<Species>(i);
 
-        size_t radius = 60;
-        size_t number_of_squares = (size_t) floor((radius * radius) * 0.25); // fill ~25% of square
-        size_t distance_from_edge = radius + 2;
+        size_t square_size = WIDTH * .10;
+        // fill ~20% of square
+        size_t number_of_squares = (size_t) floor((square_size * square_size) * 0.20);
+        size_t distance_from_edge = square_size + 2;
 
         // choose random target on board, at least specified distance from edges
         size_t x_target = (rand() % (WIDTH - (distance_from_edge * 2 - 1))) + distance_from_edge;
@@ -38,12 +40,12 @@ void Game_Of_Life::random_spawn_grid() {
 
         set_cell(x_target, y_target, species);
 
-        // pick number_of_squares within (radius x radius) square centered on target
+        // pick number_of_squares within (square_size x square_size) square centered on target
         size_t rand_x;
         size_t rand_y;
         for (size_t i = 0; i < number_of_squares; i++) {
-            rand_x = x_target + ((rand() % (radius + 1)) - (radius/2));
-            rand_y = y_target + ((rand() % (radius + 1)) - (radius/2));
+            rand_x = x_target + ((rand() % (square_size + 1)) - (square_size/2));
+            rand_y = y_target + ((rand() % (square_size + 1)) - (square_size/2));
             set_cell(rand_x, rand_y, species);
         }
     }
@@ -95,7 +97,7 @@ Species Game_Of_Life::get_spawn_type(size_t x, size_t y) {
         c[i] = Counter(static_cast<Species>(i), 0);
     }
 
-    // counter number of neighbors for each species
+    // get number of neighbors for each species
     for (size_t i = x - 1; i <= x + 1; i++) {
         for (size_t j = y - 1; j <= y + 1; j++) {
             // check only if cell isn't current cell (x,y) AND cell is not out of bounds
@@ -136,7 +138,8 @@ void Game_Of_Life::generate_update_list() {
                 update_list.push_back(Coordinate(x, y, DEAD));
             }
         // if no species in cell, check if any species should be spawned there
-        } else if (has_three_neighbors(x, y)) { // do "heavy" get_spawn_type() only if 3 neighbors exist
+        // do "heavier" get_spawn_type() only if 3 neighbors exist
+        } else if (has_three_neighbors(x, y)) {
             Species spawn_type = get_spawn_type(x, y);
             if (spawn_type != DEAD) {
                 update_list.push_back(Coordinate(x, y, spawn_type));

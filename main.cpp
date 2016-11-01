@@ -7,7 +7,7 @@
 
 #define CYCLES_PER_SEC 3600000
 
-Game_Of_Life game(10);
+Game_Of_Life game(8);
 
 int pixel_width = 1024;
 int pixel_height = 768;
@@ -34,7 +34,8 @@ void set_color(Species species) {
 // places a square at (x, y). Must be nested in glBegin() <-> glEnd() tags
 void draw_square(size_t x, size_t y) {
     if (x < 0 || y < 0 || x >= game.get_width() || y >= game.get_height()) {
-        invalid_range(x, y, "draw_square");
+        cout << "Invalid range in draw_square. (" << x << ", " << y << ") out of range" << endl;
+        exit(1);
     }
 
     x *= cell_size;
@@ -75,11 +76,11 @@ void display() {
 
         // iterate over cells that need to be updated and set them accordingly
         glBegin(GL_QUADS);
-        for (auto &coord: update_list) {
-            set_color(coord.species);
-            draw_square(coord.x, coord.y);
-            game.set_cell(coord.x, coord.y, coord.species);
-        }
+            for (auto &coord: update_list) {
+                set_color(coord.species);
+                draw_square(coord.x, coord.y);
+                game.set_cell(coord.x, coord.y, coord.species);
+            }
         glEnd();
         glFlush();
 
