@@ -26,28 +26,41 @@ Game_Of_Life::Game_Of_Life(size_t num_species) {
 
 // place all species randomly on board ("buckshot" approach)
 void Game_Of_Life::random_spawn_grid() {
+
+// 	// Completely random spawn type
+//	for (size_t i = 0; i < number_of_species; i++) {
+//		for (size_t j = 0; j < HEIGHT; j++) {
+//			for (size_t k = 0; k < WIDTH; k++) {
+//				Species species = static_cast<Species>(rand() % 10);
+//				set_cell(k, j, species); 
+//			}
+//		}
+//	}
+
     for (size_t i = 0; i < number_of_species; i++) {
-        Species species = static_cast<Species>(i);
+		for (size_t j = 0; j < 4; j++) {
+			Species species = static_cast<Species>(i);
 
-        size_t square_size = WIDTH * .10;
-        // fill ~20% of square
-        size_t number_of_squares = (size_t) floor((square_size * square_size) * 0.20);
-        size_t distance_from_edge = square_size + 2;
+			size_t square_size = WIDTH * .10;
+			// fill ~20% of square
+			size_t number_of_squares = (size_t) floor((square_size * square_size) * 0.20);
+			size_t distance_from_edge = square_size + 2;
 
-        // choose random target on board, at least specified distance from edges
-        size_t x_target = (rand() % (WIDTH - (distance_from_edge * 2 - 1))) + distance_from_edge;
-        size_t y_target = (rand() % (HEIGHT - (distance_from_edge * 2 - 1))) + distance_from_edge;
+			// choose random target on board, at least specified distance from edges
+			size_t x_target = (rand() % (WIDTH - (distance_from_edge * 2 - 1))) + distance_from_edge;
+			size_t y_target = (rand() % (HEIGHT - (distance_from_edge * 2 - 1))) + distance_from_edge;
 
-        set_cell(x_target, y_target, species);
+			set_cell(x_target, y_target, species);
 
-        // pick number_of_squares within (square_size x square_size) square centered on target
-        size_t rand_x;
-        size_t rand_y;
-        for (size_t i = 0; i < number_of_squares; i++) {
-            rand_x = x_target + ((rand() % (square_size + 1)) - (square_size/2));
-            rand_y = y_target + ((rand() % (square_size + 1)) - (square_size/2));
-            set_cell(rand_x, rand_y, species);
-        }
+			// pick number_of_squares within (square_size x square_size) square centered on target
+			size_t rand_x;
+			size_t rand_y;
+			for (size_t i = 0; i < number_of_squares; i++) {
+				rand_x = x_target + ((rand() % (square_size + 1)) - (square_size/2));
+				rand_y = y_target + ((rand() % (square_size + 1)) - (square_size/2));
+				set_cell(rand_x, rand_y, species);
+			}
+		}
     }
 }
 
